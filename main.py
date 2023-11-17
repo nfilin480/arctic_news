@@ -1,9 +1,9 @@
 import eval.eval
-import generator.generator
-from config import classInit
+import generator.bart
+from decorator import trace
 
 
-@classInit
+@trace
 def run(gen, evaluate):
     while True:
         reference = input('text: ')
@@ -21,7 +21,7 @@ def run(gen, evaluate):
 
 
 if __name__ == '__main__':
-    gen = generator.generator.Generator()
+    gen = generator.bart.Generator()
     evaluate = eval.eval.Eval()
     run(gen, evaluate)
 

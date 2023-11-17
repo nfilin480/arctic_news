@@ -1,13 +1,14 @@
 import evaluate
-from config import classInit
+from decorator import trace
 
 class Eval():
 
-    @classInit
+    @trace
     def __init__(self) -> None:
         self.rouge_score = evaluate.load("rouge")
 
-    @classInit
+    @trace
+
     def calc(self, generated, reference):
         scores = self.rouge_score.compute(
             predictions=[generated], references=[reference]
