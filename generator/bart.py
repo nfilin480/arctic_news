@@ -1,6 +1,6 @@
 from transformers import MBartTokenizer, MBartForConditionalGeneration
 import torch
-from decorator import trace
+from decorators import trace
 
 
 class Generator():

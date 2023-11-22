@@ -17,6 +17,7 @@ class Normalize():
 
 
     def normalize_data(self, content):
+        print(content)
         new_data = []
         i = 0
         for item in content:
@@ -32,7 +33,7 @@ class Normalize():
                         continue
                     tokens.append(token)
 
-            new_data.append(self.normalize(self, tokens))
+            new_data.append(self.normalize(tokens))
             if i == 1000: break
         return new_data
     
