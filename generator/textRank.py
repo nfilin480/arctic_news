@@ -5,10 +5,16 @@ import seaborn as sns
 from scipy.linalg import eig
 from matplotlib import pyplot as plt
 import razdel
-from preprocessor.normalize import Normalize
+import pandas as pd
+#from preprocessor.normalize import Normalize
+import sys
+# caution: path[0] is reserved for script path (or '' in REPL)
+sys.path.append('E:\\IT_projects\\arctic_news\\preprocessor')
+from syntax_analyzer import SyntaxAnalyzer
+
 
 #def text_rank_preprocessing(sentence):
-#    return tokenize_sentence(sentence)
+#    return SyntaxAnalyzer.get_sentences(sentence)
 
 
 def text_rank_similarity(tokens1, tokens2):
@@ -36,22 +42,23 @@ class TextRankSummarizer:
         damping = 0.85,
         epsilon = 1e-4,
         niter = 100,
-        preprocessing_function = Normalize().normalize_data,
+        preprocessing_function = SyntaxAnalyzer(),
         similarity_function = text_rank_similarity,
         verbose=False
     ):
         self.damping = damping
         self.epsilon = epsilon
         self.niter = niter
-        self.preprocessing_function = preprocessing_function
+        self.preprocessing_function = SyntaxAnalyzer()
         self.similarity_function = similarity_function
         self.threshold = None
         self.verbose = True
 
     def __call__(self, text, target_sentences_count):
-        original_sentences = [s.text for s in razdel.sentenize(text)]
+        doc = self.preprocessing_function(text)
+        original_sentences = self.preprocessing_function.get_sentences(doc, normalize=False, upos=[])
         print(len(original_sentences))
-        sentences = [self.preprocessing_function(s) for s in original_sentences]
+        sentences = self.preprocessing_function.get_sentences(doc, normalize=True, upos=['NOUN', 'VERB', 'AUX', 'ADJ'])
 
         graph = self._create_graph(sentences)  
         graph = self._apply_threshold(graph)
