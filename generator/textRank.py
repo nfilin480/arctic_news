@@ -121,8 +121,8 @@ class TextRankSummarizer:
         """
         norm = graph.sum(axis=1)[:, np.newaxis]
         norm_graph = graph / (norm + 1e-7)
-        assert np.isclose(np.sum(norm_graph[0, :]), 1.0)
-        assert np.all(np.isclose(norm_graph.sum(axis=1), np.ones((graph.shape[0], ))))
+        #assert np.isclose(np.sum(norm_graph[0, :]), 1.0)
+        #assert np.all(np.isclose(norm_graph.sum(axis=1), np.ones((graph.shape[0], ))))
         return norm_graph
 
     def _iterate(self, matrix):

@@ -1,8 +1,6 @@
 import stanza
-#from decorators import free_cache
 
 class SyntaxAnalyzer:
-    #@free_cache
     def __init__(self) -> None:
         self.pipeline = stanza.Pipeline(
             lang='ru', 
